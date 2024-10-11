@@ -1,9 +1,15 @@
+import io
+import sys
 import unittest
 from fizzbuzz import affiche
 
 class TestFizzBuzz(unittest.TestCase):
     def test_affiche(self):
-        self.assertEqual(affiche(), "1Fizz2Buzz...")  # Remplace par le résultat attendu
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        affiche()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(captured_output.getvalue(), "1...100")  # à remplacer par le résultat attendu
 
 if __name__ == "__main__":
     unittest.main()
